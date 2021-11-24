@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Genre } from '../../genres/entities/Genre';
 import { User } from '../../users/entities/User';
 
 @Entity('games')
@@ -16,6 +18,9 @@ export class Game {
 
   @Column()
   title: string;
+
+  @OneToMany(() => Genre, game => Game)
+  genres: Genre[];
 
   @ManyToMany(() => User, (user) => user.games)
   users: User[];
